@@ -57,7 +57,8 @@ router.post("/signin", (req, res) => {
             { _id: saved_user._id },
             process.env.JWT_SECRET
           );
-          res.json({ token });
+          const { _id, name, email } = saved_user;
+          res.json({ token, user: { _id, name, email } });
         } else {
           return res.status(422).json({ message: "Invalid email or password" });
         }
