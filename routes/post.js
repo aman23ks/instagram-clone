@@ -31,15 +31,13 @@ router.post("/createpost", requireLogin, (req, res) => {
   if (!title || !body || !pic) {
     return res.status(422).json({ error: "Please add all the fields" });
   }
-
-  req.user.password = undefined; //If we don't put this line then the password will also be added in the database, on putting this line the user's password will be undefined so it wont be added.
+  req.user.password = undefined;
   const post = new Post({
     title,
     body,
     photo: pic,
     postedBy: req.user,
   });
-
   post
     .save()
     .then((result) => {
